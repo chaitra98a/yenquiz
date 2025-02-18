@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacker Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background"></div>
+  <div class="quiz-container">
+    <h1>Quiz Game</h1>
+    <div id="question-container">
+      <p id="question-number"></p>
+      <p id="question"></p>
+      <div id="options"></div>
+    </div>
+    <div class="buttons">
+       <button id="back-btn" disabled>Back</button> 
+      <button id="skip-btn">Skip</button>
+      <button id="next-btn" disabled>Next</button>
+      <button id="bonus-btn" disabled>🎁 Bonus</button>
+      <button id="retry-btn" style="display: none;">Retry</button>
+    </div>
+    <p id="score">Score: 0</p>
+  </div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Congratulations!</h2>
+      <p>You unlocked the bonus feature.</p>
+      <button id="close-popup">Close</button>
+    </div>
+  </div>
+  <div id="result-screen" class="result-screen">
+    <div class="result-content">
+      <h2 id="result-title"></h2>
+      <p id="result-message"></p>
+      <button id="result-retry-btn">Retry</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
