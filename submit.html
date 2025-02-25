@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Flags</title>
+    <title>CTF Flag Submission</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,7 +45,6 @@
             cursor: pointer;
             border-radius: 5px;
             font-weight: bold;
-            text-shadow: 0 0 5px #0ff;
         }
         .result {
             margin-top: 10px;
@@ -59,26 +58,26 @@
 <body>
     <div class="container">
         <h2>Submit Your Flags</h2>
-        <div id="flagForm">
-            <div class="input-group">
-                <label>Level 1 Flag:</label>
-                <input type="text" id="flag1">
-            </div>
-            <div class="input-group">
-                <label>Level 2 Flag:</label>
-                <input type="text" id="flag2">
-            </div>
-            <div class="input-group">
-                <label>Level 3 Flag:</label>
-                <input type="text" id="flag3">
-            </div>
-            <div class="input-group">
-                <label>Level 4 Flag:</label>
-                <input type="text" id="flag4">
-            </div>
-            <button class="submit-btn" onclick="submitFlags()">Submit Flags</button>
+        <div class="input-group">
+            <label>Level 1 Flag:</label>
+            <input type="text" id="flag1">
         </div>
+        <div class="input-group">
+            <label>Level 2 Flag:</label>
+            <input type="text" id="flag2">
+        </div>
+        <div class="input-group">
+            <label>Level 3 Flag:</label>
+            <input type="text" id="flag3">
+        </div>
+        <div class="input-group">
+            <label>Level 4 Flag:</label>
+            <input type="text" id="flag4">
+        </div>
+        <button class="submit-btn" onclick="submitFlags()">Submit Flags</button>
         <div id="resultContainer"></div>
+        <br>
+        <a href="scoreboard.html" style="color:#0ff;">View Scoreboard</a>
     </div>
 
     <script>
@@ -87,14 +86,12 @@
                 { challenge_id: 1, flag: document.getElementById("flag1").value },
                 { challenge_id: 2, flag: document.getElementById("flag2").value },
                 { challenge_id: 3, flag: document.getElementById("flag3").value },
-                { challenge_id: 4, flag: document.getElementById("flag4").value },
+                { challenge_id: 4, flag: document.getElementById("flag4").value }
             ];
 
             const response = await fetch("http://127.0.0.1:5000/submit", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ flags })
             });
 
@@ -105,7 +102,7 @@
             result.results.forEach(res => {
                 const div = document.createElement("div");
                 div.className = "result";
-                div.innerText = `Challenge ${res.challenge_id}: ${res.message}`;
+                div.innerText = `Level ${res.challenge_id}: ${res.message}`;
                 resultContainer.appendChild(div);
             });
         }
