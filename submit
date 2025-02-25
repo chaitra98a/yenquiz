@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Flag Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .flag-input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            padding: 10px 15px;
+            background: #0ff;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #0ff;
+            margin-top: 10px;
+        }
+        .result, .scoreboard {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .scoreboard-container {
+            margin-top: 20px;
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Submit Your Flags</h2>
+        <input type="text" class="flag-input" id="team" placeholder="Enter Team Name">
+        <input type="text" class="flag-input" id="flag1" placeholder="Enter Level 1 Flag">
+        <input type="text" class="flag-input" id="flag2" placeholder="Enter Level 2 Flag">
+        <input type="text" class="flag-input" id="flag3" placeholder="Enter Level 3 Flag">
+        <input type="text" class="flag-input" id="flag4" placeholder="Enter Level 4 Flag">
+        <br>
+        <button class="submit-btn" onclick="submitFlags()">Submit Flags</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <div class="scoreboard-container">
+        <h2>Scoreboard</h2>
+        <div class="scoreboard" id="scoreboard"></div>
+    </div>
+    
+    <script>
+        function submitFlags() {
+            const teamName = document.getElementById("team").value.trim();
+            const flags = {
+                flag1: document.getElementById("flag1").value.trim(),
+                flag2: document.getElementById("flag2").value.trim(),
+                flag3: document.getElementById("flag3").value.trim(),
+                flag4: document.getElementById("flag4").value.trim(),
+            };
+
+            if (!teamName) {
+                alert("Please enter your team name!");
+                return;
+            }
+
+            fetch("http://localhost:5000/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ teamName, flags })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = data.message;
+                loadScores();
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function loadScores() {
+            fetch("http://localhost:5000/scoreboard")
+            .then(response => response.json())
+            .then(data => {
+                let scoreboardHTML = "<ul>";
+                data.forEach(team => {
+                    scoreboardHTML += `<li>${team.name}: ${team.score} Points</li>`;
+                });
+                scoreboardHTML += "</ul>";
+                document.getElementById("scoreboard").innerHTML = scoreboardHTML;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        // Load scoreboard on page load
+        window.onload = loadScores;
+
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
+</body>
+</html>
