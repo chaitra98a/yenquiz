@@ -1,124 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to CTF</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        .welcome {
-            font-size: 32px;
-            font-weight: bold;
-            color: #0ff;
-            margin-bottom: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-        .team-card {
-            background: #2c2c2c;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 255, 255, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .team-info {
-            text-align: left;
-        }
-        .team-name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0ff;
-        }
-        .team-members {
-            color: #bbb;
-            font-size: 14px;
-        }
-        .submit-btn, .scoreboard-btn {
-            padding: 8px 15px;
-            background: #0ff;
-            color: black;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-            text-shadow: 0 0 5px #0ff;
-            margin-left: 10px;
-        }
-        .refresh-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #0ff;
-            color: black;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-            text-shadow: 0 0 5px #0ff;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacker Quiz</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="welcome">Welcome to CTF</div>
-    <div class="container">
-        <h1>Registered Teams</h1>
-        <button class="scoreboard-btn" onclick="viewScoreboard()">Scoreboard</button>
-        <div id="teamList">
-           <div class="team-card">
-                <div class="team-info">
-                    <p class="team-name">Team 3</p>
-                    <p class="team-members">Members: </p>
-                </div>
-                <button class="submit-btn" onclick="location.href='submit.html'">Submit Flag</button>
-
-
-            </div>
-           <div class="team-card">
-                <div class="team-info">
-                    <p class="team-name">Team 3</p>
-                    <p class="team-members">Members: </p>
-                </div>
-                <button class="submit-btn" onclick="location.href='submit.html'">Submit Flag</button>
-
-
-            </div>
-            <div class="team-card">
-                <div class="team-info">
-                    <p class="team-name">Team 3</p>
-                    <p class="team-members">Members: </p>
-                </div>
-                <button class="submit-btn" onclick="location.href='submit.html'">Submit Flag</button>
-
-
-            </div>
-        </div>
-        <button class="refresh-btn" onclick="refreshTeams()">Refresh List</button>
+  <div class="background"></div>
+  <div class="quiz-container">
+    <h1>Quiz Game</h1>
+    <div id="question-container">
+      <p id="question-number"></p>
+      <p id="question"></p>
+      <div id="options"></div>
     </div>
-
-    <script>
-        function refreshTeams() {
-            alert('Refreshing team list...');
-        }
-        function viewScoreboard() {
-            alert('Opening scoreboard...');
-        }
-
-        // Disable right-click
-        document.addEventListener('contextmenu', event => event.preventDefault());
-    </script>
+    <div class="buttons">
+       <button id="back-btn" disabled>Back</button> 
+      <button id="skip-btn">Skip</button>
+      <button id="next-btn" disabled>Next</button>
+      <button id="bonus-btn" disabled>🎁 Bonus</button>
+      <button id="retry-btn" style="display: none;">Retry</button>
+    </div>
+    <p id="score">Score: 0</p>
+  </div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Congratulations!</h2>
+      <p>You unlocked the bonus feature.</p>
+      <button id="close-popup">Close</button>
+    </div>
+  </div>
+  <div id="result-screen" class="result-screen">
+    <div class="result-content">
+      <h2 id="result-title"></h2>
+      <p id="result-message"></p>
+      <button id="result-retry-btn">Retry</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
